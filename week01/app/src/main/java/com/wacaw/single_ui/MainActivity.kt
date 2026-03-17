@@ -17,24 +17,44 @@ class MainActivity : ComponentActivity() {
         // R.layout.activity_main -> binding.root
         setContentView(binding.root)
 
-        // 우표 클릭시 색상 변화
-        binding.layoutHappy.setOnClickListener {
-            binding.tvHappyDesc.setBackgroundColor("#FFEFB6".toColorInt())
+        // 감정 값 넣기
+        binding.emotionHappy.apply {
+            icEmotion.setImageResource(R.drawable.ic_happy)
+            tvEmotionDesc.text = "더없이 행복한 하루였어요"
         }
-        binding.layoutExciting.setOnClickListener {
-            binding.tvExciting.setBackgroundColor("#CEE7F5".toColorInt())
+        binding.emotionExciting.apply {
+            icEmotion.setImageResource(R.drawable.ic_exciting)
+            tvEmotionDesc.text = "들뜨고 흥분돼요"
         }
-        binding.layoutNormal.setOnClickListener {
-            binding.tvNormal.setBackgroundColor("#BEC3ED".toColorInt())
+        binding.emotionNormal.apply {
+            icEmotion.setImageResource(R.drawable.ic_normal)
+            tvEmotionDesc.text = "평범한 하루였어요"
         }
-        binding.layoutAnxious.setOnClickListener {
-            binding.tvAnxious.setBackgroundColor("#B1D3B9".toColorInt())
+        binding.emotionAnxious.apply {
+            icEmotion.setImageResource(R.drawable.ic_anxious)
+            tvEmotionDesc.text = "생각이 많아지고 불안해요"
         }
-        binding.layoutAngry.setOnClickListener {
-            binding.tvAngry.setBackgroundColor("#EB8B8B".toColorInt())
+        binding.emotionAngry.apply {
+            icEmotion.setImageResource(R.drawable.ic_angry)
+            tvEmotionDesc.text = "부글부글 화가 나요"
         }
 
-
+        // 감정 우표 클릭 이벤트 리스너
+        binding.emotionHappy.root.setOnClickListener {
+            binding.emotionHappy.tvEmotionDesc.setBackgroundColor("#FFEFB6".toColorInt())
+        }
+        binding.emotionExciting.root.setOnClickListener {
+            binding.emotionExciting.tvEmotionDesc.setBackgroundColor("#CEE7F5".toColorInt())
+        }
+        binding.emotionNormal.root.setOnClickListener {
+            binding.emotionNormal.tvEmotionDesc.setBackgroundColor("#BEC3ED".toColorInt())
+        }
+        binding.emotionAnxious.root.setOnClickListener {
+            binding.emotionAnxious.tvEmotionDesc.setBackgroundColor("#B1D3B9".toColorInt())
+        }
+        binding.emotionAngry.root.setOnClickListener {
+            binding.emotionAngry.tvEmotionDesc.setBackgroundColor("#EB8B8B".toColorInt())
+        }
 
     }
 }
