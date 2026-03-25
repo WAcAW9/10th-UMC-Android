@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
             .commit()
 
 
-        // fragment 전환
+        // bottom_nav : fragment 전환
         binding.mainBnv.setOnItemSelectedListener { item ->
             when(item.itemId){ // 클릭된 아이템ID 식별
                 // fragment_1 : 매인

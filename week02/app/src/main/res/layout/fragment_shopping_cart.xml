@@ -7,6 +7,7 @@
 
     tools:context=".ShoppingCartFragment">
 
+    <!--  메인 화면   -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -23,20 +24,18 @@
             android:layout_marginTop="24dp"
             android:gravity="center"
             android:lineSpacingExtra="4sp"
-            android:text="장바구니가 비어 있습니다.\n제품을 추가하면 여기에 표시됩니다."
-            android:textColor="#474747"
+            android:text="@string/blank_order"
             android:textSize="16sp" />
-
-
     </LinearLayout>
 
+    <!-- 주문하기 버튼  -->
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/button2"
+        android:id="@+id/btn_order"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_marginHorizontal="20dp"
         android:backgroundTint="@color/black"
         app:cornerRadius="30dp"
-        android:text="주문하기" />
+        android:text="@string/btn_order" />
 </FrameLayout>
