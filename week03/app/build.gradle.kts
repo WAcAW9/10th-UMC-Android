@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.wacaw.week03"
+    namespace = "com.wacaw.week02"
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
@@ -12,7 +12,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.wacaw.week03"
+        applicationId = "com.wacaw.week02"
         minSdk = 26
         targetSdk = 36
         versionCode = 1
