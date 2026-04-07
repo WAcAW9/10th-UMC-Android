@@ -10,13 +10,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wacaw.week02.adapter.ProductAdapter
 import com.wacaw.week02.data.ProductData
+import com.wacaw.week02.databinding.FragmentPurchaseBinding
 
 class PurchaseFragment : Fragment() {
+    private var _binding: FragmentPurchaseBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_purchase, container, false)
+        _binding = FragmentPurchaseBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
 
@@ -29,7 +34,6 @@ class PurchaseFragment : Fragment() {
             ProductData("Nike Elite Crew", "Basketball Socks",R.drawable.image_sample_product_4,7,16),
             ProductData("Nike Air Force 1 '07", "Women's Shoes",R.drawable.image_sample_product_5,5,115),
             ProductData("Jordan ENike Air Force 1 '07ssentials", "Men's Shoes",R.drawable.image_sample_product_6,2,115),
-
         )
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)

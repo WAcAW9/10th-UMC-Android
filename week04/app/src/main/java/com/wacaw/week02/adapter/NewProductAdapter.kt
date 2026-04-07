@@ -8,9 +8,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.wacaw.week02.R
 import com.wacaw.week02.data.ProductData
+import com.wacaw.week02.data.entity.ProductEntity
 
 class NewProductAdapter(
-    private val productList: List<ProductData>
+    private val productList: List<ProductEntity>
 ) : RecyclerView.Adapter<NewProductAdapter.NewProductViewHolder>(){
     class NewProductViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvProductName: TextView = view.findViewById(R.id.tvNewProductName)
@@ -29,8 +30,8 @@ class NewProductAdapter(
     override fun onBindViewHolder(holder: NewProductViewHolder, position: Int) {
         val product = productList[position]
         holder.tvProductName.text = product.name
-        holder.tvProductDetail.text = product.detail
-        holder.imgProduct.setImageResource(product.image)
+        holder.tvProductDetail.text = product.content
+        holder.imgProduct.setImageResource(product.image_resource ?: R.drawable.ic_bagsimple)
     }
 
     override fun getItemCount(): Int {

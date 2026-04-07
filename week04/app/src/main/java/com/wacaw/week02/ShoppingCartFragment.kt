@@ -24,7 +24,7 @@ class ShoppingCartFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnOrder.setOnClickListener {
-            findNavController().navigate(R.id.action_shoppingCartFragment2_to_purchaseFragment2)
+            findNavController().navigate(R.id.purchaseFragment)
         }
     }
 
