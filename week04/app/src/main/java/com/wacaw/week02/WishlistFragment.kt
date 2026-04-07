@@ -6,12 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wacaw.week02.adapter.ProductAdapter
 import com.wacaw.week02.data.ProductData
 
-class PurchaseFragment : Fragment() {
+
+class WishlistFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -24,19 +24,20 @@ class PurchaseFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // 샘플 데이터
-        val productList = listOf(
-            ProductData("Nike Everyday Plus Cushioned", "Training Ankle Socks (6 Pairs)",R.drawable.image_sample_product_3,5,10),
-            ProductData("Nike Elite Crew", "Basketball Socks",R.drawable.image_sample_product_4,7,16),
-            ProductData("Nike Air Force 1 '07", "Women's Shoes",R.drawable.image_sample_product_5,5,115),
-            ProductData("Jordan ENike Air Force 1 '07ssentials", "Men's Shoes",R.drawable.image_sample_product_6,2,115),
+        val friendList = listOf(
 
-        )
+            ProductData("Jordan ENike Air Force 1 '07ssentials", "Men's Shoes",R.drawable.image_sample_product_6,2,115),
+            ProductData("Nike Everyday Plus Cushioned", "Training Ankle Socks (6 Pairs)",R.drawable.image_sample_product_3,5,10)
+            )
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
 
+        // LayoutManager: 세로 리스트 형태
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
 
-        recyclerView.adapter = ProductAdapter(productList)
+        // Adapter 연결
+        recyclerView.adapter = ProductAdapter(friendList)
     }
+
 
 }
