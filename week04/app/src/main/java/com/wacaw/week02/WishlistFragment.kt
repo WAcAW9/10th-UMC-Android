@@ -50,7 +50,15 @@ class WishlistFragment : Fragment() {
             withContext(Dispatchers.Main) {
                 Log.d("DB", "상품 목록: $products")
                 binding.recyclerViewLikedProduct.layoutManager = GridLayoutManager(requireContext(), 2)
-                val adapter = ProductAdapter(products)
+                val adapter = ProductAdapter(products) { clickedProduct ->
+                    // 하트 클릭 시
+                    viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+                        repository.updateLikeStatus(clickedProduct.id, clickedProduct.isLiked)
+
+                        val check = repository.getAllProducts().find { it.id == clickedProduct.id }
+                        Log.d("DB_CHECK", "DB 실제 상태: ${check?.isLiked}")
+                    }
+                }
                 binding.recyclerViewLikedProduct.adapter = adapter
             }
         }

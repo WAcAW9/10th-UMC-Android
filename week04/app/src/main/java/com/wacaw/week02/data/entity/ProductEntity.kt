@@ -11,6 +11,6 @@ data class ProductEntity(
     val content: String,
     val image_resource: Int?,
     val price: Int,
-    val isLiked: Boolean,
+    var isLiked: Boolean,
     val category_id: Int? = null
 )

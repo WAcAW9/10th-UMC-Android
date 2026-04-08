@@ -11,7 +11,7 @@ import com.wacaw.week02.data.entity.ProductEntity
 @Dao
 interface ProductDao {
     //새 상품을 삽입
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertProduct(product: ProductEntity)
 
     //상품 정보를 수정
@@ -38,4 +38,7 @@ interface ProductDao {
     @Query("SELECT * FROM ProductTable WHERE isLiked = 1")
     suspend fun getLikedProducts(): List<ProductEntity>
 
+    // 좋아요 상품으로 만들기
+    @Query("UPDATE ProductTable SET isLiked = :isLiked WHERE id = :id")
+    suspend fun updateLikeStatus(id: Int, isLiked: Boolean)
 }
