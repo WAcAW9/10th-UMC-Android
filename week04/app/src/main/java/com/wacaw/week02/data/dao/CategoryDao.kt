@@ -11,16 +11,16 @@ import com.wacaw.week02.data.entity.CategoryEntity
 interface CategoryDao {
     //새 카테고리를 삽입
     @Insert
-    fun insertCategory(category: CategoryEntity)
+    suspend fun insertCategory(category: CategoryEntity): Long
 
     //카테고리 정보를 수정
     @Update
-    fun updateCategory(category: CategoryEntity)
+    suspend fun updateCategory(category: CategoryEntity)
 
     //특정 카테고리를 삭제
     @Delete
-    fun deleteCategory(category: CategoryEntity)
+    suspend fun deleteCategory(category: CategoryEntity)
 
     @Query("SELECT * FROM CategoryTable")
-    fun getAllCategories(): List<CategoryEntity>
+    suspend fun getAllCategories(): List<CategoryEntity>
 }

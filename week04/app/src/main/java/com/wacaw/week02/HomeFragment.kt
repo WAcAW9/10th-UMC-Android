@@ -49,7 +49,7 @@ class HomeFragment : Fragment() {
 
             val products = withContext(Dispatchers.IO) {
                 repository.insertData()
-                repository.getAllProducts()
+                repository.getProductsByCategoryName("NewArrival")
             }
 
             withContext(Dispatchers.Main) {

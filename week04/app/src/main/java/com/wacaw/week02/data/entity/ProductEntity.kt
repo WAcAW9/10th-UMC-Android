@@ -12,5 +12,5 @@ data class ProductEntity(
     val image_resource: Int?,
     val price: Int,
     val isLiked: Boolean,
-    val category_id: Int
+    val category_id: Int? = null
 )

@@ -38,21 +38,20 @@ class WishlistFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         viewLifecycleOwner.lifecycleScope.launch {
             val db = ProductDatabase.getInstance(requireContext())
             val repository = ProductRepository(db.productDao(), db.categoryDao())
 
             val products = withContext(Dispatchers.IO) {
                 repository.insertData()
-                repository.getAllProducts()
+                repository.getLikedProducts()
             }
 
             withContext(Dispatchers.Main) {
                 Log.d("DB", "상품 목록: $products")
-
-                val adapter = NewProductAdapter(products)
-                binding.recyclerView.adapter = adapter
+                binding.recyclerViewLikedProduct.layoutManager = GridLayoutManager(requireContext(), 2)
+                val adapter = ProductAdapter(products)
+                binding.recyclerViewLikedProduct.adapter = adapter
             }
         }
     }

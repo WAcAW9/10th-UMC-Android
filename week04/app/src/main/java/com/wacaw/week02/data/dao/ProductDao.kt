@@ -26,9 +26,13 @@ interface ProductDao {
     @Query("SELECT * FROM ProductTable")
     suspend fun getAllProducts(): List<ProductEntity>
 
-    //특정 카테고리의 상품만
-    @Query("SELECT * FROM ProductTable WHERE category_id = :categoryId")
-    suspend fun getProductsByCategory(categoryId: Int): List<ProductEntity>
+    // 특정 카테고리 상품만
+    @Query("""
+        SELECT ProductTable.* FROM ProductTable 
+        INNER JOIN CategoryTable ON ProductTable.category_id = CategoryTable.id 
+        WHERE CategoryTable.name = :name
+    """)
+    suspend fun getProductsByCategoryName(name: String): List<ProductEntity>
 
     //좋아요 상품만
     @Query("SELECT * FROM ProductTable WHERE isLiked = 1")
