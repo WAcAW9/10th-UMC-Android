@@ -23,17 +23,13 @@ class ProfileViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            try {
-                val response = repository.getUsers()
-                if(response.isSuccessful){
-                    val users = response.body()?.data ?: emptyList()
+            repository.getUsers()
+                .onSuccess { users ->
                     _userList.value = users
-                }else{
-                    _error.value = "${response.code()}"
                 }
-            }catch (e:Exception){
-                _error.value = e.message ?: "Unknown Error"
-            }
+                .onFailure { e ->
+                    _error.value = e.message ?: "Unknown Error"
+                }
         }
     }
 }
