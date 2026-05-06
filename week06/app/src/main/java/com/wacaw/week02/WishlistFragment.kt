@@ -7,7 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.wacaw.week02.adapter.ProductAdapter
 import com.wacaw.week02.data.database.ProductDatabase
@@ -41,11 +43,13 @@ class WishlistFragment : Fragment() {
         binding.recyclerViewLikedProduct.layoutManager =
             GridLayoutManager(requireContext(), 2)
 
-        viewModel.likedProducts.observe(viewLifecycleOwner) { products ->
-            val adapter = ProductAdapter(products) { clickedProduct ->
-                viewModel.toggleLike(clickedProduct.id, clickedProduct.isLiked)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.likedProducts.collect { products ->
+                val adapter = ProductAdapter(products) { clickedProduct ->
+                    viewModel.toggleLike(clickedProduct.id, clickedProduct.isLiked)
+                }
+                binding.recyclerViewLikedProduct.adapter = adapter
             }
-            binding.recyclerViewLikedProduct.adapter = adapter
         }
     }
 

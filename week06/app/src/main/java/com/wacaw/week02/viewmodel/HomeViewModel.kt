@@ -8,6 +8,9 @@ import com.wacaw.week02.data.entity.ProductEntity
 import com.wacaw.week02.data.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -15,8 +18,8 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val repository: ProductRepository
 ): ViewModel(){
-    private val _newProducts = MutableLiveData<List<ProductEntity>>()
-    val newProducts: LiveData<List<ProductEntity>> = _newProducts
+    private val _newProducts = MutableStateFlow<List<ProductEntity>>(emptyList())
+    val newProducts: StateFlow<List<ProductEntity>> = _newProducts.asStateFlow()
 
     init {
         // 앱 시작 시 DB 변화를 구독
@@ -24,7 +27,7 @@ class HomeViewModel @Inject constructor(
             viewModelScope.launch(Dispatchers.IO) {
                 repository.insertData()
                 val products = repository.getProductsByCategoryName("NewArrival")
-                _newProducts.postValue(products)
+                _newProducts.value = products
             }
         }
     }

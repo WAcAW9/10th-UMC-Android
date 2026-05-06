@@ -8,6 +8,9 @@ import com.wacaw.week02.data.remote.response.UserData
 import com.wacaw.week02.data.repository.ProductRepository
 import com.wacaw.week02.data.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -15,11 +18,11 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(
     private val repository: UserRepository
 ): ViewModel(){
-    private val _userList = MutableLiveData<List<UserData>>()
-    val userList: LiveData<List<UserData>> = _userList
+    private val _userList = MutableStateFlow<List<UserData>>(emptyList())
+    val userList: StateFlow<List<UserData>> = _userList.asStateFlow()
 
-    private val _error = MutableLiveData<String>()
-    val error : LiveData<String> = _error
+    private val _error = MutableStateFlow<String?>(null)
+    val error: StateFlow<String?> = _error.asStateFlow()
 
     init {
         viewModelScope.launch {

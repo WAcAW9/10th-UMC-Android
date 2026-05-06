@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.wacaw.week02.adapter.NewProductAdapter
 import com.wacaw.week02.data.database.ProductDatabase
 import com.wacaw.week02.data.repository.ProductRepository
@@ -47,8 +49,10 @@ class HomeFragment : Fragment() {
         )
         binding.tvDate.text = getString(R.string.today_format, dateString)
 
-        viewModel.newProducts.observe(viewLifecycleOwner) { products ->
-            binding.recyclerViewNewProduct.adapter = NewProductAdapter(products)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.newProducts.collect { products ->
+                binding.recyclerViewNewProduct.adapter = NewProductAdapter(products)
+            }
         }
 
         }
