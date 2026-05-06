@@ -9,7 +9,7 @@ data class ProductEntity(
     val id: Int = 0, //Primary Key
     val name: String,
     val content: String,
-    val image_resource: Int?,
+    val image_resource: String?,
     val price: Int,
     var isLiked: Boolean,
     val category_id: Int? = null

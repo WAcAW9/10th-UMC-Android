@@ -6,20 +6,25 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.wacaw.week02.adapter.ProductAdapter
 import com.wacaw.week02.data.database.ProductDatabase
 import com.wacaw.week02.data.repository.ProductRepository
 import com.wacaw.week02.databinding.FragmentWishlistBinding
+import com.wacaw.week02.viewmodel.WishlistViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-
+@AndroidEntryPoint
 class WishlistFragment : Fragment() {
     private var _binding: FragmentWishlistBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel: WishlistViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,29 +38,14 @@ class WishlistFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            val db = ProductDatabase.getInstance(requireContext())
-            val repository = ProductRepository(db.productDao(), db.categoryDao())
+        binding.recyclerViewLikedProduct.layoutManager =
+            GridLayoutManager(requireContext(), 2)
 
-            val products = withContext(Dispatchers.IO) {
-                repository.insertData()
-                repository.getLikedProducts()
+        viewModel.likedProducts.observe(viewLifecycleOwner) { products ->
+            val adapter = ProductAdapter(products) { clickedProduct ->
+                viewModel.toggleLike(clickedProduct.id, clickedProduct.isLiked)
             }
-
-            withContext(Dispatchers.Main) {
-                Log.d("DB", "상품 목록: $products")
-                binding.recyclerViewLikedProduct.layoutManager = GridLayoutManager(requireContext(), 2)
-                val adapter = ProductAdapter(products) { clickedProduct ->
-                    // 하트 클릭 시
-                    viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
-                        repository.updateLikeStatus(clickedProduct.id, clickedProduct.isLiked)
-
-                        val check = repository.getAllProducts().find { it.id == clickedProduct.id }
-                        Log.d("DB_CHECK", "DB 실제 상태: ${check?.isLiked}")
-                    }
-                }
-                binding.recyclerViewLikedProduct.adapter = adapter
-            }
+            binding.recyclerViewLikedProduct.adapter = adapter
         }
     }
 

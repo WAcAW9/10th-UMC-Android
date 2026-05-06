@@ -9,7 +9,7 @@ import com.wacaw.week02.data.dao.ProductDao
 import com.wacaw.week02.data.entity.CategoryEntity
 import com.wacaw.week02.data.entity.ProductEntity
 
-@Database(entities = [ProductEntity::class, CategoryEntity::class], version = 1, exportSchema = false)
+@Database(entities = [ProductEntity::class, CategoryEntity::class], version = 2, exportSchema = false)
 abstract class ProductDatabase : RoomDatabase() {
 
     abstract fun productDao(): ProductDao

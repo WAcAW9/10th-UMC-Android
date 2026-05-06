@@ -31,7 +31,18 @@ class NewProductAdapter(
         val product = productList[position]
         holder.tvProductName.text = product.name
         holder.tvProductDetail.text = product.content
-        holder.imgProduct.setImageResource(product.image_resource ?: R.drawable.ic_bagsimple)
+
+        val resId = product.image_resource?.let { name ->
+            holder.itemView.context.resources.getIdentifier(
+                name, "drawable", holder.itemView.context.packageName
+            )
+        } ?: 0
+
+        if (resId != 0) {
+            holder.imgProduct.setImageResource(resId)
+        } else {
+            holder.imgProduct.setImageResource(R.drawable.ic_bagsimple) // 기본 이미지
+        }
     }
 
     override fun getItemCount(): Int {

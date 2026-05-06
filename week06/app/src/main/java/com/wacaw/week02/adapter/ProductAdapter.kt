@@ -42,9 +42,18 @@ class ProductAdapter(
 
         holder.tvProductName.text = product.name
         holder.tvProductDetail.text = product.content
-        product.image_resource?.let {
-            holder.imgProduct.setImageResource(it)
+        val resId = product.image_resource?.let { name ->
+            holder.itemView.context.resources.getIdentifier(
+                name, "drawable", holder.itemView.context.packageName
+            )
+        } ?: 0
+
+        if (resId != 0) {
+            holder.imgProduct.setImageResource(resId)
+        } else {
+            holder.imgProduct.setImageResource(R.drawable.ic_bagsimple)
         }
+
         holder.imgLike.setOnClickListener {
             product.isLiked = !product.isLiked
             notifyItemChanged(position)

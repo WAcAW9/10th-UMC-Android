@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     //어노테이션(@) 활성화
     alias(libs.plugins.kotlin.symbol.processing)
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -66,6 +67,16 @@ dependencies {
     // Glide 라이브러리 - 이미지 로딩 라이브러리
     implementation("com.github.bumptech.glide:glide:4.16.0")
     ksp("com.github.bumptech.glide:compiler:4.16.0")
+
+    // Hilt 라이브러리
+    implementation("com.google.dagger:hilt-android:2.51.1")
+    ksp("com.google.dagger:hilt-android-compiler:2.51.1")
+
+    // ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
+
+    // Hilt + Fragment ViewModel 연동
+    implementation("androidx.hilt:hilt-navigation-fragment:1.2.0")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
