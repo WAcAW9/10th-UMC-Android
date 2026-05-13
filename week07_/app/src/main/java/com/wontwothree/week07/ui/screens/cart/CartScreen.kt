@@ -47,7 +47,7 @@ fun CartScreen(onOrderBtnClick:()->Unit){
                 Text("제품을 추가하면 여기에 표시됩니다.", fontSize = 16.sp)
             }
             Button(
-                onClick = {},
+                onClick = onOrderBtnClick,
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
                     .fillMaxWidth()
