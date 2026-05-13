@@ -26,7 +26,7 @@ import com.wontwothree.week07.R
 import com.wontwothree.week07.ui.theme.Week07Theme
 
 @Composable
-fun CartScreen(){
+fun CartScreen(onOrderBtnClick:()->Unit){
     Box(modifier = Modifier.fillMaxSize())
         {
             Column(
@@ -69,6 +69,6 @@ fun CartScreen(){
 @Composable
 fun HomeScreenPreview() {
     Week07Theme(){
-        CartScreen()
+        CartScreen({})
     }
 }
