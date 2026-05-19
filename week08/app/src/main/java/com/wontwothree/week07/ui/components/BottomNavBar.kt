@@ -20,31 +20,31 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hasRoute
 import com.wontwothree.week07.navigation.AppDestination
 import com.wontwothree.week07.ui.theme.Week07Theme
+import kotlin.enums.EnumEntries
 
-data class BottomNavItem(
+enum class BottomNavItem(
     val destination: AppDestination,
     val icon: ImageVector,
     val label: String
-)
-
-val bottomNavItems = listOf(
-    BottomNavItem(AppDestination.Home, Icons.Outlined.Home, "홈"),
-    BottomNavItem(AppDestination.Shop, Icons.Outlined.Search, "구매하기"),
-    BottomNavItem(AppDestination.Wishlist, Icons.Outlined.FavoriteBorder, "위시리스트"),
-    BottomNavItem(AppDestination.Cart, Icons.Outlined.ShoppingCart, "장바구니"),
-    BottomNavItem(AppDestination.Profile, Icons.Outlined.Person, "프로필"),
-)
+) {
+    HOME(AppDestination.Home, Icons.Outlined.Home, "홈"),
+    SHOP(AppDestination.Shop, Icons.Outlined.Search, "구매하기"),
+    WISHLIST(AppDestination.Wishlist, Icons.Outlined.FavoriteBorder, "위시리스트"),
+    CART(AppDestination.Cart, Icons.Outlined.ShoppingCart, "장바구니"),
+    PROFILE(AppDestination.Profile, Icons.Outlined.Person, "프로필")
+}
 
 @Composable
 fun BottomNavBar(
-    currentDestination: NavDestination?,
-    onTabSelected: (AppDestination) -> Unit) {
+    isTabSelected: (AppDestination) -> Boolean,
+    onTabSelected: (AppDestination) -> Unit,
+    items: EnumEntries<BottomNavItem> = BottomNavItem.entries) {
     NavigationBar(
         containerColor = Color.White,
         tonalElevation = 0.dp
     ) {
-        bottomNavItems.forEach { item ->
-            val selected = currentDestination?.hasRoute(item.destination::class) == true
+        items.forEach { item ->
+            val selected = isTabSelected(item.destination)
 
             NavigationBarItem(
                 selected = selected,
@@ -76,7 +76,9 @@ fun BottomNavBar(
 @Composable
 fun HomeScreenPreview() {
     Week07Theme(){
-        BottomNavBar(currentDestination = null,
-            onTabSelected = { })
+        BottomNavBar(
+            isTabSelected = { route -> route == AppDestination.Home },
+            onTabSelected = { }
+        )
     }
 }
