@@ -13,7 +13,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.wontwothree.week07.navigation.AppDestination
 import com.wontwothree.week07.navigation.NavGraph
-import com.wontwothree.week07.ui.screens.components.BottomNavBar
+import com.wontwothree.week07.ui.components.BottomNavBar
 import com.wontwothree.week07.ui.theme.Week07Theme
 
 class MainActivity : ComponentActivity() {
