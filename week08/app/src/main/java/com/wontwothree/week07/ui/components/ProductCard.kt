@@ -27,7 +27,9 @@ import com.wontwothree.week07.model.Product
 import com.wontwothree.week07.model.sampleProduct
 
 @Composable
-fun ProductCard(product: Product) {
+fun ProductCard(
+    product: Product,
+    isWishlisted: Boolean,) {
 
     var isWishlisted by remember { mutableStateOf(product.isWishList) }
 
@@ -100,8 +102,8 @@ fun ProductCard(product: Product) {
 
 }
 
-@Preview(showBackground = true)
-@Composable
-fun ProductCardPreview(){
-    ProductCard(sampleProduct[2])
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun ProductCardPreview(){
+//    ProductCard(sampleProduct[2])
+//}
