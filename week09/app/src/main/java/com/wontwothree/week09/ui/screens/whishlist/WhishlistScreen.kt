@@ -40,8 +40,16 @@ fun WhishlistScreen(){
             modifier = Modifier.weight(1f),
             contentPadding = PaddingValues(8.dp)
         ) {
-            items(sampleProduct, key = {product ->product.id}) { product ->
-                if (product.isWishList) ProductCard(product = product, isWishlisted = product.isWishList)
+            items(
+                items = sampleProduct,
+                key = { it.id }
+            ) {
+                if (it.isWishList) {
+                    ProductCard(
+                        product = it,
+                        isWishlisted = it.isWishList
+                    )
+                }
             }
         }
     }

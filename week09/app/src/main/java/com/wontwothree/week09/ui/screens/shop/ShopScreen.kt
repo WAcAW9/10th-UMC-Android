@@ -27,8 +27,16 @@ fun ShopScreen() {
             modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(8.dp)
         ) {
-            items(sampleProduct,key = {product ->product.id}) { product ->
-                if (!product.isNewArrival) ProductCard(product = product,isWishlisted = product.isWishList)
+            items(
+                items = sampleProduct,
+                key = { it.id }
+            ) {
+                if (!it.isNewArrival) {
+                    ProductCard(
+                        product = it,
+                        isWishlisted = it.isWishList
+                    )
+                }
             }
         }
     }
